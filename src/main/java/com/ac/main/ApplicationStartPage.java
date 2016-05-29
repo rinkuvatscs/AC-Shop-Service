@@ -4,7 +4,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.ac.main.ui.LoginPage;
-import com.ac.pojo.ReadEnglishProperties;
+import com.ac.pojo.LoginPagePojo;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -22,11 +22,11 @@ public class ApplicationStartPage extends Application {
 		login.start(primaryStage);
 	}
 
-	public static ReadEnglishProperties test() {
+	public static LoginPagePojo test() {
 
-		String confFile = "loc.xml";
+		String confFile = "ReadPropertiesFile.xml";
 		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext(confFile);
-		ReadEnglishProperties readEnglishProperties = (ReadEnglishProperties) context.getBean("EnglishProperties");
+		LoginPagePojo readEnglishProperties = (LoginPagePojo) context.getBean("EnglishProperties");
 		context.close();
 		return readEnglishProperties;
 	}

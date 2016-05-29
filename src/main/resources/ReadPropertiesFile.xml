@@ -7,7 +7,7 @@
 
 	<context:property-placeholder location="classpath:Message-en.properties" />
 
-	<bean id="EnglishProperties" class="com.ac.pojo.ReadEnglishProperties">
+	<bean id="EnglishProperties" class="com.ac.pojo.LoginPagePojo">
 		<property name="title" value="${title}" />
 		<property name="shopName" value="${shopName}" />
 		<property name="admin" value="${admin}" />
@@ -17,6 +17,11 @@
 		<property name="pswd" value="${pswd}" />
 		<property name="username" value="${username}" />
 		<property name="clearbutton" value="${clearbutton}" />
-		
+		<property name="welcome" value="${welcome}" />
+		<property name="customer" value="${customer}" />
+		<property name="addUser" value="${addUser}" />
+		<property name="getUserDetails" value="${getUserDetails}" />
+		<property name="deleteUser" value="${deleteUser}" />
+
 	</bean>
 </beans>

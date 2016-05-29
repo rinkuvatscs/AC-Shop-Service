@@ -1,6 +1,6 @@
 package com.ac.pojo;
 
-public class ReadEnglishProperties {
+public class LoginPagePojo {
 
 	private String title;
 	private String shopName;
@@ -11,6 +11,43 @@ public class ReadEnglishProperties {
 	private String pswd;
 	private String submitbutton;
 	private String clearbutton;
+	private String welcome;
+	private String customer;
+	private String addUser;
+	private String getUserDetails;
+	private String deleteUser;
+
+	public String getAddUser() {
+		return addUser;
+	}
+
+	public void setAddUser(String addUser) {
+		this.addUser = addUser;
+	}
+
+	public String getGetUserDetails() {
+		return getUserDetails;
+	}
+
+	public void setGetUserDetails(String getUserDetails) {
+		this.getUserDetails = getUserDetails;
+	}
+
+	public String getDeleteUser() {
+		return deleteUser;
+	}
+
+	public void setDeleteUser(String deleteUser) {
+		this.deleteUser = deleteUser;
+	}
+
+	public String getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(String customer) {
+		this.customer = customer;
+	}
 
 	public String getClearbutton() {
 		return clearbutton;
@@ -84,10 +121,18 @@ public class ReadEnglishProperties {
 		this.submitbutton = submitbutton;
 	}
 
-	public ReadEnglishProperties() {
+	public LoginPagePojo() {
 	}
 
-	public ReadEnglishProperties(ReadEnglishProperties readEnglishProperties) {
+	public String getWelcome() {
+		return welcome;
+	}
+
+	public void setWelcome(String welcome) {
+		this.welcome = welcome;
+	}
+
+	public LoginPagePojo(LoginPagePojo readEnglishProperties) {
 		this.title = readEnglishProperties.getTitle();
 		this.shopName = readEnglishProperties.getShopName();
 		this.loginby = readEnglishProperties.getLoginby();
@@ -97,6 +142,11 @@ public class ReadEnglishProperties {
 		this.pswd = readEnglishProperties.getPswd();
 		this.submitbutton = readEnglishProperties.getSubmitbutton();
 		this.clearbutton = readEnglishProperties.getClearbutton();
+		this.welcome = readEnglishProperties.getWelcome();
+		this.customer = readEnglishProperties.getCustomer();
+		this.addUser = readEnglishProperties.getAddUser();
+		this.getUserDetails = readEnglishProperties.getGetUserDetails();
+		this.deleteUser = readEnglishProperties.getDeleteUser();
 	}
 
 }

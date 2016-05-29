@@ -16,9 +16,9 @@ public class SqlConnections {
 	ResultSet rs;
 	Alert alert;
 
-	public String connections(String username, String password, String role) {
+	public boolean connections(String username, String password, String role) {
 
-		String response = null;
+		boolean response = false;
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/xav_db", "root", "root");
 			ps = con.prepareStatement("SELECT * FROM LOGIN WHERE USERNAME = '" + username + "' && PASSWORD = '"
@@ -31,20 +31,19 @@ public class SqlConnections {
 				alert.setTitle("Success");
 				alert.setHeaderText(username + ", you had logged in");
 				alert.showAndWait();
-				response = username + " successfully Logged in";
+				response = true;
 
 			} else {
 
-				System.out.println("Check your Credentials");
 				alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Error");
 				alert.setHeaderText("Check your Credentials");
 				alert.showAndWait();
+				response = false;
 			}
-
 		} catch (SQLException e) {
 			System.out.println("Connection Failed! Check output console");
-			response = "Caught Exception";
+			response = false;
 		}
 		return response;
 	}

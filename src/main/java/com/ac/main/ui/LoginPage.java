@@ -4,7 +4,7 @@ import org.springframework.util.StringUtils;
 
 import com.ac.main.ApplicationStartPage;
 import com.ac.main.connection.SqlConnections;
-import com.ac.pojo.ReadEnglishProperties;
+import com.ac.pojo.LoginPagePojo;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -36,7 +36,7 @@ public class LoginPage extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// make the controls
-		ReadEnglishProperties readEnglishProperties = new ReadEnglishProperties(ApplicationStartPage.test());
+		LoginPagePojo readEnglishProperties = new LoginPagePojo(ApplicationStartPage.test());
 
 		String style = "-fx-border-color: #000; -fx-padding: 5px;";
 
@@ -103,7 +103,8 @@ public class LoginPage extends Application {
 		// set widths of all controls in separate method
 		setWidths();
 		// attach buttons to code in separate method
-		attachCode();
+		attachCode(primaryStage); // Here PrimaryStage is taken as it is
+									// required in buttonAction method.
 		// usual stuff
 		Scene scene = new Scene(anchorpane, 300, 250);
 		primaryStage.setTitle("Ac Shop 1.0");
@@ -124,21 +125,20 @@ public class LoginPage extends Application {
 		passwordField.setPrefWidth(100);
 	}
 
-	public void attachCode() {
+	// Here PrimaryStage is taken as it is required in buttonAction method.
+	public void attachCode(Stage primaryStage) {
 		// have each button run BTNCODE when clicked
-		btnSubmit.setOnAction(e -> btncode(e));
-		btnClear.setOnAction(e -> btncode(e));
+		btnSubmit.setOnAction(e -> btncode(e, primaryStage));
+		btnClear.setOnAction(e -> btncode(e, primaryStage));
 	}
 
-	public void btncode(ActionEvent e) {
+	public void btncode(ActionEvent e, Stage primaryStage) {
 		// e tells us which button was clicked
 		if (e.getSource() == btnClear) {
 			txtUsername.setText("");
 			passwordField.setText("");
 			txtUsername.requestFocus();
 			System.out.println(radioAdmin.getText());
-
-			// return;
 		}
 		if (e.getSource() == btnSubmit) {
 			String role = null;
@@ -152,12 +152,20 @@ public class LoginPage extends Application {
 				alert.setHeaderText("Please select one of the option in Login As");
 				alert.showAndWait();
 			}
-			System.out.println(radioAdmin.getAccessibleText());
 			if (!StringUtils.isEmpty(txtUsername.getText()) && !StringUtils.isEmpty(passwordField)) {
 
 				SqlConnections sqlConnections = new SqlConnections();
-				String response = sqlConnections.connections(txtUsername.getText(), passwordField.getText(), role);
-				if (!StringUtils.isEmpty(response)) {
+				boolean response = sqlConnections.connections(txtUsername.getText(), passwordField.getText(), role);
+				if (response) {
+					if (radioAdmin.isSelected()) {
+						WelcomeAdmin welcomeAdmin = new WelcomeAdmin();
+						try {
+							welcomeAdmin.start(primaryStage);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
 					System.out.println("Hello logged in");
 				}
 			}
