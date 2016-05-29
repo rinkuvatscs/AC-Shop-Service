@@ -32,6 +32,7 @@ public class LoginPage extends Application {
 	Label lblTitle, lblUsername, lblPassword, lblLoginBy;
 	RadioButton radioUser, radioAdmin;
 	final ToggleGroup group = new ToggleGroup();
+	Alert alert;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -42,7 +43,9 @@ public class LoginPage extends Application {
 
 		lblTitle = new Label(readEnglishProperties.getTitle());
 		lblTitle.setAlignment(Pos.CENTER);
-		lblTitle.setStyle("-fx-border-color: #000; -fx-padding: 5px; -fx-size: 15px");
+		lblTitle.setStyle(
+				"-fx-border-color: #300; -fx-padding: 5px; -fx-font: 18px Serif; -fx-background-color: #DFB951;  "
+						+ "-fx-text-fill: #006464; -fx-border-radius: 20; -fx-background-radius: 20;");
 
 		lblLoginBy = new Label(readEnglishProperties.getLoginby());
 		radioUser = new RadioButton(readEnglishProperties.getUser());
@@ -107,6 +110,7 @@ public class LoginPage extends Application {
 									// required in buttonAction method.
 		// usual stuff
 		Scene scene = new Scene(anchorpane, 300, 250);
+		scene.getStylesheets().add("css/UI.css");
 		primaryStage.setTitle("Ac Shop 1.0");
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -116,7 +120,7 @@ public class LoginPage extends Application {
 	public void setWidths() {
 		// set widths of all controls
 		// lblUsername.setPrefWidth(70);
-		lblTitle.setPrefWidth(270);
+		lblTitle.setPrefWidth(300);
 		btnClear.setPrefWidth(75);
 		btnSubmit.setPrefWidth(75);
 		lblPassword.setPrefWidth(75);
@@ -147,7 +151,7 @@ public class LoginPage extends Application {
 			} else if (radioUser.isSelected()) {
 				role = radioUser.getText();
 			} else {
-				Alert alert = new Alert(AlertType.ERROR);
+				alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Error");
 				alert.setHeaderText("Please select one of the option in Login As");
 				alert.showAndWait();
@@ -162,11 +166,14 @@ public class LoginPage extends Application {
 						try {
 							welcomeAdmin.start(primaryStage);
 						} catch (Exception e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 					}
 					System.out.println("Hello logged in");
+				} else {
+					alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error");
+					alert.showAndWait();
 				}
 			}
 
