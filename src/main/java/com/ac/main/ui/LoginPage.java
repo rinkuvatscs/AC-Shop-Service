@@ -37,15 +37,15 @@ public class LoginPage extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// make the controls
-		LoginPagePojo readEnglishProperties = new LoginPagePojo(ApplicationStartPage.test());
+		LoginPagePojo readEnglishProperties = new LoginPagePojo(
+				ApplicationStartPage.test());
 
 		String style = "-fx-border-color: #000; -fx-padding: 5px;";
 
 		lblTitle = new Label(readEnglishProperties.getTitle());
 		lblTitle.setAlignment(Pos.CENTER);
-		lblTitle.setStyle(
-				"-fx-border-color: #300; -fx-padding: 5px; -fx-font: 18px Serif; -fx-background-color: #DFB951;  "
-						+ "-fx-text-fill: #006464; -fx-border-radius: 20; -fx-background-radius: 20;");
+		lblTitle.setStyle("-fx-border-color: #300; -fx-padding: 5px; -fx-font: 18px Serif; -fx-background-color: #DFB951;  "
+				+ "-fx-text-fill: #006464; -fx-border-radius: 20; -fx-background-radius: 20;");
 
 		lblLoginBy = new Label(readEnglishProperties.getLoginby());
 		radioUser = new RadioButton(readEnglishProperties.getUser());
@@ -142,7 +142,6 @@ public class LoginPage extends Application {
 			txtUsername.setText("");
 			passwordField.setText("");
 			txtUsername.requestFocus();
-			System.out.println(radioAdmin.getText());
 		}
 		if (e.getSource() == btnSubmit) {
 			String role = null;
@@ -156,10 +155,12 @@ public class LoginPage extends Application {
 				alert.setHeaderText("Please select one of the option in Login As");
 				alert.showAndWait();
 			}
-			if (!StringUtils.isEmpty(txtUsername.getText()) && !StringUtils.isEmpty(passwordField)) {
+			if (!StringUtils.isEmpty(txtUsername.getText())
+					&& !StringUtils.isEmpty(passwordField)) {
 
 				SqlConnections sqlConnections = new SqlConnections();
-				boolean response = sqlConnections.connections(txtUsername.getText(), passwordField.getText(), role);
+				boolean response = sqlConnections.connections(
+						txtUsername.getText(), passwordField.getText(), role);
 				if (response) {
 					if (radioAdmin.isSelected()) {
 						WelcomeAdmin welcomeAdmin = new WelcomeAdmin();

@@ -1,22 +1,34 @@
 package com.ac.main.ui;
 
-import com.ac.main.ApplicationStartPage;
-import com.ac.pojo.LoginPagePojo;
+import javax.sound.sampled.Port.Info;
+
+import org.springframework.util.StringUtils;
 
 import javafx.application.Application;
-import javafx.scene.Parent;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import com.ac.global.focus.FocusUI;
+import com.ac.main.ApplicationStartPage;
+import com.ac.pojo.LoginPagePojo;
 
 public class AddUser extends Application {
 
-	Label addUser, lblName, lblMobile, lblEmail, lblUsername, lblPasswrd, lblConfirmPswd;
+	Label addUser, lblName, lblMobile, lblEmail, lblUsername, lblPasswrd,
+			lblConfirmPswd;
 	TextField txtName, txtMobile, txtEmail, txtUsername;
 	PasswordField txtPassword, txtConfirmPswd;
 	Button btnSubmit, btnCancel;
@@ -24,7 +36,8 @@ public class AddUser extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		LoginPagePojo readEnglishProperties = new LoginPagePojo(ApplicationStartPage.test());
+		LoginPagePojo readEnglishProperties = new LoginPagePojo(
+				ApplicationStartPage.test());
 
 		addUser = new Label(readEnglishProperties.getAddUser());
 		lblName = new Label(readEnglishProperties.getName());
@@ -50,6 +63,7 @@ public class AddUser extends Application {
 		GridPane setComponents = new GridPane();
 		setComponents.setHgap(10);
 		setComponents.setVgap(10);
+		setComponents.setPadding(new Insets(5, 10, 0, 10));
 
 		setComponents.add(lblName, 0, 3);
 		setComponents.add(txtName, 1, 3);
@@ -69,11 +83,39 @@ public class AddUser extends Application {
 		AnchorPane anchorPane = new AnchorPane();
 		anchorPane.getChildren().addAll(setTitle, setComponents);
 
+		txtName.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			
+			
+			public void changed(ObservableValue<? extends Boolean> observable,
+					Boolean oldValue, Boolean newValue) {
+				if (oldValue.booleanValue()) {
+					FocusUI.focusLost(txtName);
+				}
+			}
+
+			
+		});
+
+		attachCode(primaryStage);
+
 		Scene scene = new Scene(anchorPane, 350, 350);
 		scene.getStylesheets().add("css/UI.css");
 		primaryStage.setTitle("Welcome Admin");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+	}
+	
+	
+
+
+	public void attachCode(Stage primaryStage) {
+		// have each button run BTNCODE when clicked
+		btnSubmit.setOnAction(e -> btncode(e, primaryStage));
+		btnCancel.setOnAction(e -> btncode(e, primaryStage));
+	}
+
+	public void btncode(ActionEvent e, Stage primaryStage) {
+
 	}
 
 	public static void main(String[] args) {
