@@ -1,5 +1,8 @@
 package com.ac.main.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.sound.sampled.Port.Info;
 
 import org.springframework.util.StringUtils;
@@ -21,6 +24,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import com.ac.commons.UiCommons;
 import com.ac.global.focus.FocusUI;
 import com.ac.main.ApplicationStartPage;
 import com.ac.pojo.LoginPagePojo;
@@ -79,6 +83,15 @@ public class AddUser extends Application {
 		setComponents.add(txtConfirmPswd, 1, 8);
 		setComponents.add(btnSubmit, 0, 9);
 		setComponents.add(btnCancel, 1, 9);
+		
+		
+		/*UiCommons commons = new UiCommons();
+		List<String> data = new ArrayList<>();
+		data.add("Aviral");
+		data.add("Mittal");
+		List<TextField> res = commons.drawTextFields(2, data);
+		
+		setComponents.add(res.get(0), 0, 10);*/
 
 		AnchorPane anchorPane = new AnchorPane();
 		anchorPane.getChildren().addAll(setTitle, setComponents);
