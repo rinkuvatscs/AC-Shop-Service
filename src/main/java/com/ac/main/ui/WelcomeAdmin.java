@@ -24,7 +24,7 @@ public class WelcomeAdmin extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		String style = "-fx-border-color: #385; -fx-padding: 5px;";
+		// String style = "-fx-border-color: #385; -fx-padding: 5px;";
 		LoginPagePojo readEnglishProperties = new LoginPagePojo(ApplicationStartPage.test());
 		lblWelcome = new Label(readEnglishProperties.getWelcome());
 		lblWelcome.setStyle(
@@ -32,17 +32,17 @@ public class WelcomeAdmin extends Application {
 		lblWelcome.setAlignment(Pos.CENTER);
 
 		menuUser = new Menu(readEnglishProperties.getUser());
-		menuUser.setStyle(style);
+		// menuUser.setStyle(style);
 
 		menuCustomer = new Menu(readEnglishProperties.getCustomer());
-		menuCustomer.setStyle(style);
+		// menuCustomer.setStyle(style);
 
 		menuAddUser = new MenuItem(readEnglishProperties.getAddUser());
-		menuAddUser.setStyle(style);
+		// menuAddUser.setStyle(style);
 		menuGetUser = new MenuItem(readEnglishProperties.getGetUserDetails());
-		menuGetUser.setStyle(style);
+		// menuGetUser.setStyle(style);
 		menuDeleteUser = new MenuItem(readEnglishProperties.getDeleteUser());
-		menuDeleteUser.setStyle(style);
+		// menuDeleteUser.setStyle(style);
 
 		menuUser.getItems().addAll(menuAddUser, menuGetUser, menuDeleteUser);
 
@@ -68,6 +68,7 @@ public class WelcomeAdmin extends Application {
 
 		anchorPane.getChildren().addAll(flowPane, flowPane1);
 		Scene scene = new Scene(anchorPane, 250, 150);
+		scene.getStylesheets().add("css/UI.css");
 		primaryStage.setTitle("Welcome Admin");
 		primaryStage.setScene(scene);
 		primaryStage.show();

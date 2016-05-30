@@ -16,6 +16,51 @@ public class LoginPagePojo {
 	private String addUser;
 	private String getUserDetails;
 	private String deleteUser;
+	private String name;
+	private String mobile;
+	private String email;
+	private String cancel;
+	private String confirmPswd;
+
+	public String getConfirmPswd() {
+		return confirmPswd;
+	}
+
+	public void setConfirmPswd(String confirmPswd) {
+		this.confirmPswd = confirmPswd;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCancel() {
+		return cancel;
+	}
+
+	public void setCancel(String cancel) {
+		this.cancel = cancel;
+	}
 
 	public String getAddUser() {
 		return addUser;
@@ -147,6 +192,11 @@ public class LoginPagePojo {
 		this.addUser = readEnglishProperties.getAddUser();
 		this.getUserDetails = readEnglishProperties.getGetUserDetails();
 		this.deleteUser = readEnglishProperties.getDeleteUser();
+		this.name = readEnglishProperties.getName();
+		this.mobile = readEnglishProperties.getMobile();
+		this.email = readEnglishProperties.getEmail();
+		this.cancel = readEnglishProperties.getCancel();
+		this.confirmPswd = readEnglishProperties.getConfirmPswd();
 	}
 
 }

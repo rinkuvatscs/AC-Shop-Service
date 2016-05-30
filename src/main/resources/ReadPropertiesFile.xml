@@ -22,6 +22,10 @@
 		<property name="addUser" value="${addUser}" />
 		<property name="getUserDetails" value="${getUserDetails}" />
 		<property name="deleteUser" value="${deleteUser}" />
-
+		<property name="cancel" value="${cancel}" />
+		<property name="name" value="${name}" />
+		<property name="email" value="${email}" />
+		<property name="mobile" value="${mobile}" />
+		<property name="confirmPswd" value="${confirmPswd}" />
 	</bean>
 </beans>
