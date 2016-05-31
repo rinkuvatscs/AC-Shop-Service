@@ -20,9 +20,12 @@ public class SqlConnections {
 
 		boolean response = false;
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/xav_db", "root", "root");
-			ps = con.prepareStatement("SELECT * FROM LOGIN WHERE USERNAME = '" + username + "' && PASSWORD = '"
-					+ password + "' && ROLE = '" + role + "'");
+			con = DriverManager.getConnection(
+					"jdbc:mysql://10.1.249.41:3306/ac_service", "root", "root");
+			ps = con.prepareStatement("SELECT * FROM LOGIN WHERE USERNAME =? and PASSWORD = ? and ROLE = ?");
+			ps.setString(1, username);
+			ps.setString(2, password);
+			ps.setString(3, role);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 
@@ -46,5 +49,11 @@ public class SqlConnections {
 			response = false;
 		}
 		return response;
+	}
+	
+	public String addUser(){
+		
+		
+		return "";
 	}
 }

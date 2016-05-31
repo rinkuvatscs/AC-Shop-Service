@@ -1,20 +1,40 @@
 package com.ac.global.focus;
 
-import org.springframework.util.StringUtils;
-
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 
+import org.springframework.util.StringUtils;
+
 public class FocusUI {
 
-	public static void focusLost(TextField txtName) {
-		if (StringUtils.isEmpty(txtName.getText())) {
+	public static void textFieldFocusLost(TextField textField) {
+
+		textField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+
+			public void changed(ObservableValue<? extends Boolean> observable,
+					Boolean oldValue, Boolean newValue) {
+				if (oldValue.booleanValue()) {
+					textFieldAlert(textField);
+				} else {
+					textField.requestFocus();
+				}
+			}
+
+		});
+
+	}
+
+	public static void textFieldAlert(TextField textField) {
+		if (StringUtils.isEmpty(textField.getText())) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setContentText("Please Enter Name");
-			alert.showAndWait();
-			txtName.requestFocus();
+//			alert.showAndWait();
+			alert.show();
+			// textField.requestFocus();
 		}
 	}
 }
