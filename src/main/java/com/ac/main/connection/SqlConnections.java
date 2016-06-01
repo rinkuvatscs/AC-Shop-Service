@@ -60,6 +60,15 @@ public class SqlConnections {
 		return response;
 	}
 
+	public String addUser(List<UserDetail> userDetailsList) {
+
+		if (con == null) {
+			con = connection();
+		}
+
+		return "";
+	}
+
 	public List<UserDetails> getUser(List<UserDetail> userDetailsList) {
 
 		if (con == null) {
@@ -69,7 +78,6 @@ public class SqlConnections {
 		// StringBuffer stringBuffer = new
 		// StringBuffer("SELECT * FROM userdetail ");
 
-		boolean isError = false;
 		boolean isRecordExist = false;
 		// boolean isName = false, isMobile = false, isEmail = false;
 		UserDetails userDetails = null;
@@ -137,7 +145,6 @@ public class SqlConnections {
 						detailsList.add(userDetails);
 					}
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 

@@ -2,11 +2,8 @@ package com.ac.main.ui;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -22,6 +19,7 @@ import com.ac.commons.UiCommons;
 import com.ac.global.focus.FocusUI;
 import com.ac.main.ApplicationStartPage;
 import com.ac.pojo.LoginPagePojo;
+import com.ac.pojo.UserDetail;
 
 public class AddUser extends Application {
 
@@ -134,9 +132,11 @@ public class AddUser extends Application {
 			System.exit(0);
 		}
 		if (btnSubmit == e.getSource()) {
-			for(TextField txt : textFields){
-			System.out.println(txt.getText());
-		}}
+
+			List<UserDetail> listDetails = UiCommons
+					.userDetailCommons(textFields);
+
+		}
 	}
 
 	public static void main(String[] args) {

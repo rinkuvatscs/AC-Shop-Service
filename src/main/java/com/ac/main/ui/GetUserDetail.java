@@ -79,7 +79,8 @@ public class GetUserDetail extends Application {
 			List<TextField> textFields) {
 
 		if (btn.getId().contains("Submit")) {
-			List<UserDetail> userDetails = getUserDetail(textFields);
+			List<UserDetail> userDetails = UiCommons
+					.userDetailCommons(textFields);
 			SqlConnections connections = new SqlConnections();
 			List<UserDetails> userDetailsList = connections
 					.getUser(userDetails);
@@ -92,22 +93,6 @@ public class GetUserDetail extends Application {
 		} else {
 			System.exit(0);
 		}
-
-	}
-
-	private List<UserDetail> getUserDetail(List<TextField> textFields) {
-		List<UserDetail> userDetails = null;
-		UserDetail userDetail = null;
-		if (textFields != null && !textFields.isEmpty()) {
-			userDetails = new ArrayList<UserDetail>();
-			int i = 1;
-			for (TextField txtField : textFields) {
-				userDetail = new UserDetail(i, txtField.getText());
-				userDetails.add(userDetail);
-				i++;
-			}
-		}
-		return userDetails;
 
 	}
 

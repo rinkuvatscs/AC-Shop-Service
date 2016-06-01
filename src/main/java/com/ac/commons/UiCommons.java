@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 
 import com.ac.pojo.ColumnDetail;
 import com.ac.pojo.TempUserDetail;
+import com.ac.pojo.UserDetail;
 import com.ac.pojo.UserDetails;
 
 public class UiCommons {
@@ -144,5 +145,20 @@ public class UiCommons {
 		stage.setScene(scene);
 		stage.show();
 		
+	}
+	
+	public static List<UserDetail> userDetailCommons(List<TextField> textFields) {
+		List<UserDetail> userDetails = null;
+		UserDetail userDetail = null;
+		if (textFields != null && !textFields.isEmpty()) {
+			userDetails = new ArrayList<UserDetail>();
+			int i = 1;
+			for (TextField txtField : textFields) {
+				userDetail = new UserDetail(i, txtField.getText());
+				userDetails.add(userDetail);
+				i++;
+			}
+		}
+		return userDetails;
 	}
 }
