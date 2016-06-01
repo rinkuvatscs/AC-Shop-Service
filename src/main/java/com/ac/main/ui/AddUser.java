@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import com.ac.commons.UiCommons;
 import com.ac.global.focus.FocusUI;
 import com.ac.main.ApplicationStartPage;
+import com.ac.main.connection.SqlConnections;
 import com.ac.pojo.LoginPagePojo;
 import com.ac.pojo.UserDetail;
 
@@ -135,7 +136,8 @@ public class AddUser extends Application {
 
 			List<UserDetail> listDetails = UiCommons
 					.userDetailCommons(textFields);
-
+			SqlConnections sqlConnections = new SqlConnections();
+			String query = sqlConnections.addUser(listDetails);
 		}
 	}
 
