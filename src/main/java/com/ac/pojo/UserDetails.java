@@ -1,19 +1,27 @@
 package com.ac.pojo;
 
-public class TableViewPojo {
+public class UserDetails {
 
+	private int userId;
 	private String username;
 	private String name;
 	private String email;
 	private String mobile;
 
-	public TableViewPojo(String username, String name, String email,
-			String mobile) {
+	public UserDetails(String username, String name, String email, String mobile) {
 		super();
 		this.username = username;
 		this.name = name;
 		this.email = email;
 		this.mobile = mobile;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public String getUsername() {

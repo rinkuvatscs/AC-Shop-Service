@@ -3,8 +3,6 @@ package com.ac.commons;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ac.pojo.TableViewPojo;
-
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -16,9 +14,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
+import com.ac.pojo.ColumnDetail;
+import com.ac.pojo.TempUserDetail;
+import com.ac.pojo.UserDetails;
 
 public class UiCommons {
 	public List<TextField> drawTextFields(int n) {
@@ -75,45 +78,69 @@ public class UiCommons {
 
 	}
 	
-	public static void tableCreation(String tableTitle , Stage stage, ObservableList<TableViewPojo> tabObservableList) {
-		TableView<TableViewPojo> table = new TableView<TableViewPojo>();
+	public static <E> void tableCreation(GridPane gridPane, String tableTitle , Stage stage, ObservableList tabObservableList, List<ColumnDetail> columnDetails) {
+		TableView table = new TableView();
 		Scene scene = new Scene(new Group());
 		stage.setTitle(tableTitle);
 		stage.setWidth(450);
-		stage.setHeight(500);
+		stage.setHeight(550);
 
 		final Label label = new Label(tableTitle);
 		label.setFont(new Font("Arial", 20));
 
 		table.setEditable(true);
 
-		TableColumn<TableViewPojo, String> username = new TableColumn<TableViewPojo, String>("Username");
+	//	if(tabObservableList instanceof TableViewPojo) {
+		//	ObservableList<UserDetails> observableList = (ObservableList<UserDetails>) tabObservableList ;
+		if(tabObservableList!=null && !tabObservableList.isEmpty() && tabObservableList.get(0) instanceof UserDetails) {
+			TableColumn<UserDetails, String> username = new TableColumn<UserDetails, String>("Username");
 		username.setMinWidth(50);
-		username.setCellValueFactory(new PropertyValueFactory<TableViewPojo, String>("username"));
+		username.setCellValueFactory(new PropertyValueFactory<UserDetails, String>("username"));
 
-		TableColumn<TableViewPojo, String> name = new TableColumn<TableViewPojo, String>("Name");
+		TableColumn<UserDetails, String> name = new TableColumn<UserDetails, String>("Name");
 		name.setMinWidth(50);
-		name.setCellValueFactory(new PropertyValueFactory<TableViewPojo, String>("name"));
+		name.setCellValueFactory(new PropertyValueFactory<UserDetails, String>("name"));
 
-		TableColumn<TableViewPojo, String> emailCol = new TableColumn<TableViewPojo, String>("Email");
+		TableColumn<UserDetails, String> emailCol = new TableColumn<UserDetails, String>("Email");
 		emailCol.setMinWidth(180);
-		emailCol.setCellValueFactory(new PropertyValueFactory<TableViewPojo, String>("email"));
+		emailCol.setCellValueFactory(new PropertyValueFactory<UserDetails, String>("email"));
 		
-		TableColumn<TableViewPojo, String> mobile = new TableColumn<TableViewPojo, String>("Mobile");
+		TableColumn<UserDetails, String> mobile = new TableColumn<UserDetails, String>("Mobile");
 		mobile.setMinWidth(50);
-		mobile.setCellValueFactory(new PropertyValueFactory<TableViewPojo, String>("mobile"));
-		
+		mobile.setCellValueFactory(new PropertyValueFactory<UserDetails, String>("mobile"));
 		table.setItems(tabObservableList);
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		
 		table.getColumns().addAll(username, name, emailCol, mobile);
+		}
+		else {
+			//TEMP
+			TableColumn<TempUserDetail, String> username = new TableColumn<TempUserDetail, String>("Hello");
+			username.setMinWidth(50);
+			username.setCellValueFactory(new PropertyValueFactory<TempUserDetail, String>("username"));
 
+			TableColumn<TempUserDetail, String> name1 = new TableColumn<TempUserDetail, String>("Jai");
+			name1.setMinWidth(50);
+			name1.setCellValueFactory(new PropertyValueFactory<TempUserDetail, String>("name1"));
+
+			TableColumn<TempUserDetail, String> emailCol = new TableColumn<TempUserDetail, String>("Ho");
+			emailCol.setMinWidth(180);
+			emailCol.setCellValueFactory(new PropertyValueFactory<TempUserDetail, String>("email"));
+			
+			TableColumn<TempUserDetail, String> mobile = new TableColumn<TempUserDetail, String>("Demo");
+			mobile.setMinWidth(50);
+			mobile.setCellValueFactory(new PropertyValueFactory<TempUserDetail, String>("mobile"));
+			table.setItems(tabObservableList);
+			table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+			table.getColumns().addAll(username, name1, emailCol, mobile);
+		}
+		
 		final VBox vbox = new VBox();
 		vbox.setSpacing(5);
 		vbox.setPadding(new Insets(10, 0, 0, 10));
-		vbox.getChildren().addAll(label, table);
-
+		vbox.getChildren().addAll(label, table, gridPane);
+		scene.getStylesheets().add("css/UI.css");
 		((Group) scene.getRoot()).getChildren().addAll(vbox);
-
 		stage.setScene(scene);
 		stage.show();
 		

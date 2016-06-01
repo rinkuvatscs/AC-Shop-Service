@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,7 +17,10 @@ import javafx.stage.Stage;
 
 import com.ac.commons.UiCommons;
 import com.ac.main.ApplicationStartPage;
+import com.ac.main.connection.SqlConnections;
 import com.ac.pojo.LoginPagePojo;
+import com.ac.pojo.UserDetail;
+import com.ac.pojo.UserDetails;
 
 public class GetUserDetail extends Application {
 
@@ -51,7 +56,7 @@ public class GetUserDetail extends Application {
 		List<Button> buttonList = commons.drawButton(2, buttonText);
 		for (int i = 0; i < buttonList.size(); i++) {
 			gridPane.add(buttonList.get(i), i, 7);
-			commons.attachCode(buttonList.get(i), primaryStage, textFieldList);
+			attachCode(buttonList.get(i), primaryStage, textFieldList);
 		}
 
 		AnchorPane anchorPane = new AnchorPane();
@@ -64,7 +69,50 @@ public class GetUserDetail extends Application {
 		primaryStage.show();
 	}
 
+	public void attachCode(Button btn, Stage primaryStage,
+			List<TextField> textFields) {
+		// have each button run BTNCODE when clicked
+		btn.setOnAction(e -> btncode(btn, e, primaryStage, textFields));
+	}
+
+	public void btncode(Button btn, ActionEvent e, Stage primaryStage,
+			List<TextField> textFields) {
+
+		if (btn.getId().contains("Submit")) {
+			List<UserDetail> userDetails = getUserDetail(textFields);
+			SqlConnections connections = new SqlConnections();
+			List<UserDetails> userDetailsList = connections
+					.getUser(userDetails);
+
+			if (userDetailsList != null && userDetailsList.size() > 0) {
+				GetUserDetailTable getUserDetailTable = new GetUserDetailTable(
+						FXCollections.observableArrayList(), userDetailsList);
+				getUserDetailTable.callTable(primaryStage);
+			}
+		} else {
+			System.exit(0);
+		}
+
+	}
+
+	private List<UserDetail> getUserDetail(List<TextField> textFields) {
+		List<UserDetail> userDetails = null;
+		UserDetail userDetail = null;
+		if (textFields != null && !textFields.isEmpty()) {
+			userDetails = new ArrayList<UserDetail>();
+			int i = 1;
+			for (TextField txtField : textFields) {
+				userDetail = new UserDetail(i, txtField.getText());
+				userDetails.add(userDetail);
+				i++;
+			}
+		}
+		return userDetails;
+
+	}
+
 	public static void main(String[] args) {
 		launch(args);
+
 	}
 }
