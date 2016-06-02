@@ -46,7 +46,7 @@ public class GetUserDetail extends Application {
 		for (int i = 1; i < labelList.size(); i++) {
 			gridPane.add(labelList.get(i), 0, i + 2);
 		}
-		List<TextField> textFieldList = commons.drawTextFields(4);
+		List<TextField> textFieldList = commons.drawTextFields(4,0);
 		for (int i = 0; i < textFieldList.size(); i++) {
 			gridPane.add(textFieldList.get(i), 1, i + 3);
 		}

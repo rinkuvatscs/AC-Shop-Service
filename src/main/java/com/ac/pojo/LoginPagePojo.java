@@ -21,6 +21,24 @@ public class LoginPagePojo {
 	private String email;
 	private String cancel;
 	private String confirmPswd;
+	private String back;
+	private String clear;
+
+	public String getBack() {
+		return back;
+	}
+
+	public void setBack(String back) {
+		this.back = back;
+	}
+
+	public String getClear() {
+		return clear;
+	}
+
+	public void setClear(String clear) {
+		this.clear = clear;
+	}
 
 	public String getConfirmPswd() {
 		return confirmPswd;

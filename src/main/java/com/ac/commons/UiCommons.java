@@ -10,6 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -25,14 +26,20 @@ import com.ac.pojo.UserDetail;
 import com.ac.pojo.UserDetails;
 
 public class UiCommons {
-	public List<TextField> drawTextFields(int n) {
+	public List<TextField> drawTextFields(int textFieldNumber,
+			int passwordFieldNumber) {
 
 		TextField field;
+		PasswordField passwordField;
 		List<TextField> textFields = new ArrayList<>();
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < textFieldNumber; i++) {
 			field = new TextField();
 			field.setId("textField-" + i);
 			textFields.add(field);
+		}
+		for (int i = 0; i < passwordFieldNumber; i++) {
+			passwordField = new PasswordField();
+			textFields.add(passwordField);
 		}
 		return textFields;
 	}
@@ -78,8 +85,10 @@ public class UiCommons {
 		}
 
 	}
-	
-	public static <E> void tableCreation(GridPane gridPane, String tableTitle , Stage stage, ObservableList tabObservableList, List<ColumnDetail> columnDetails) {
+
+	public static <E> void tableCreation(GridPane gridPane, String tableTitle,
+			Stage stage, ObservableList tabObservableList,
+			List<ColumnDetail> columnDetails) {
 		TableView table = new TableView();
 		Scene scene = new Scene(new Group());
 		stage.setTitle(tableTitle);
@@ -91,51 +100,68 @@ public class UiCommons {
 
 		table.setEditable(true);
 
-	//	if(tabObservableList instanceof TableViewPojo) {
-		//	ObservableList<UserDetails> observableList = (ObservableList<UserDetails>) tabObservableList ;
-		if(tabObservableList!=null && !tabObservableList.isEmpty() && tabObservableList.get(0) instanceof UserDetails) {
-			TableColumn<UserDetails, String> username = new TableColumn<UserDetails, String>("Username");
-		username.setMinWidth(50);
-		username.setCellValueFactory(new PropertyValueFactory<UserDetails, String>("username"));
-
-		TableColumn<UserDetails, String> name = new TableColumn<UserDetails, String>("Name");
-		name.setMinWidth(50);
-		name.setCellValueFactory(new PropertyValueFactory<UserDetails, String>("name"));
-
-		TableColumn<UserDetails, String> emailCol = new TableColumn<UserDetails, String>("Email");
-		emailCol.setMinWidth(180);
-		emailCol.setCellValueFactory(new PropertyValueFactory<UserDetails, String>("email"));
-		
-		TableColumn<UserDetails, String> mobile = new TableColumn<UserDetails, String>("Mobile");
-		mobile.setMinWidth(50);
-		mobile.setCellValueFactory(new PropertyValueFactory<UserDetails, String>("mobile"));
-		table.setItems(tabObservableList);
-		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-		
-		table.getColumns().addAll(username, name, emailCol, mobile);
-		}
-		else {
-			//TEMP
-			TableColumn<TempUserDetail, String> username = new TableColumn<TempUserDetail, String>("Hello");
+		// if(tabObservableList instanceof TableViewPojo) {
+		// ObservableList<UserDetails> observableList =
+		// (ObservableList<UserDetails>) tabObservableList ;
+		if (tabObservableList != null && !tabObservableList.isEmpty()
+				&& tabObservableList.get(0) instanceof UserDetails) {
+			TableColumn<UserDetails, String> username = new TableColumn<UserDetails, String>(
+					"Username");
 			username.setMinWidth(50);
-			username.setCellValueFactory(new PropertyValueFactory<TempUserDetail, String>("username"));
+			username.setCellValueFactory(new PropertyValueFactory<UserDetails, String>(
+					"username"));
 
-			TableColumn<TempUserDetail, String> name1 = new TableColumn<TempUserDetail, String>("Jai");
-			name1.setMinWidth(50);
-			name1.setCellValueFactory(new PropertyValueFactory<TempUserDetail, String>("name1"));
+			TableColumn<UserDetails, String> name = new TableColumn<UserDetails, String>(
+					"Name");
+			name.setMinWidth(50);
+			name.setCellValueFactory(new PropertyValueFactory<UserDetails, String>(
+					"name"));
 
-			TableColumn<TempUserDetail, String> emailCol = new TableColumn<TempUserDetail, String>("Ho");
+			TableColumn<UserDetails, String> emailCol = new TableColumn<UserDetails, String>(
+					"Email");
 			emailCol.setMinWidth(180);
-			emailCol.setCellValueFactory(new PropertyValueFactory<TempUserDetail, String>("email"));
-			
-			TableColumn<TempUserDetail, String> mobile = new TableColumn<TempUserDetail, String>("Demo");
+			emailCol.setCellValueFactory(new PropertyValueFactory<UserDetails, String>(
+					"email"));
+
+			TableColumn<UserDetails, String> mobile = new TableColumn<UserDetails, String>(
+					"Mobile");
 			mobile.setMinWidth(50);
-			mobile.setCellValueFactory(new PropertyValueFactory<TempUserDetail, String>("mobile"));
+			mobile.setCellValueFactory(new PropertyValueFactory<UserDetails, String>(
+					"mobile"));
+			table.setItems(tabObservableList);
+			table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+			table.getColumns().addAll(username, name, emailCol, mobile);
+		} else {
+			// TEMP
+			TableColumn<TempUserDetail, String> username = new TableColumn<TempUserDetail, String>(
+					"Hello");
+			username.setMinWidth(50);
+			username.setCellValueFactory(new PropertyValueFactory<TempUserDetail, String>(
+					"username"));
+
+			TableColumn<TempUserDetail, String> name1 = new TableColumn<TempUserDetail, String>(
+					"Jai");
+			name1.setMinWidth(50);
+			name1.setCellValueFactory(new PropertyValueFactory<TempUserDetail, String>(
+					"name1"));
+
+			TableColumn<TempUserDetail, String> emailCol = new TableColumn<TempUserDetail, String>(
+					"Ho");
+			emailCol.setMinWidth(180);
+			emailCol.setCellValueFactory(new PropertyValueFactory<TempUserDetail, String>(
+					"email"));
+
+			TableColumn<TempUserDetail, String> mobile = new TableColumn<TempUserDetail, String>(
+					"Demo");
+			mobile.setMinWidth(50);
+			mobile.setCellValueFactory(new PropertyValueFactory<TempUserDetail, String>(
+					"mobile"));
 			table.setItems(tabObservableList);
 			table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 			table.getColumns().addAll(username, name1, emailCol, mobile);
 		}
-		
+
 		final VBox vbox = new VBox();
 		vbox.setSpacing(5);
 		vbox.setPadding(new Insets(10, 0, 0, 10));
@@ -144,9 +170,9 @@ public class UiCommons {
 		((Group) scene.getRoot()).getChildren().addAll(vbox);
 		stage.setScene(scene);
 		stage.show();
-		
+
 	}
-	
+
 	public static List<UserDetail> userDetailCommons(List<TextField> textFields) {
 		List<UserDetail> userDetails = null;
 		UserDetail userDetail = null;

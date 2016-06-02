@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.util.StringUtils;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -62,11 +64,55 @@ public class SqlConnections {
 
 	public String addUser(List<UserDetail> userDetailsList) {
 
+		String response = "";
 		if (con == null) {
 			con = connection();
 		}
 
-		return "";
+		String sql = "INSERT INTO userdetail (userId,name,email,mobile,username,password) values (0,?,?,?,?,?)";
+		try {
+			// ps = con.prepareStatement(sql);
+
+			if (userDetailsList != null && userDetailsList.size() > 0) {
+				if (!isExist(userDetailsList.get(2).getValue(), userDetailsList
+						.get(1).getValue(), userDetailsList.get(3).getValue())) {
+					ps = con.prepareStatement(sql);
+					if (userDetailsList.get(4).getValue()
+							.equals(userDetailsList.get(5).getValue())) {
+						userDetailsList.remove(5);
+						int i = 1;
+						for (UserDetail userDetail : userDetailsList) {
+							if (!StringUtils.isEmpty(userDetail.getValue())) {
+								ps.setString(i, userDetail.getValue());
+								i++;
+
+							} else {
+								// Alert userDetailsList.get(i).getValue() is
+								// Empty
+								response = userDetail.getValue() + " is null";
+								break;
+							}
+						}
+						int stmtExecute = ps.executeUpdate();
+						if (stmtExecute > 0) {
+							response = "Successfully Added";
+						}
+					} else {
+						// Alert username & password are not equal.
+						response = "username & password are not equal";
+					}
+				} else {
+					response = "Username already Exist";
+				}
+			} else {
+				// Fields are Empty.
+				response = "Fields are empty";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return response;
 	}
 
 	public List<UserDetails> getUser(List<UserDetail> userDetailsList) {
@@ -75,45 +121,13 @@ public class SqlConnections {
 			con = connection();
 		}
 
-		// StringBuffer stringBuffer = new
-		// StringBuffer("SELECT * FROM userdetail ");
-
 		boolean isRecordExist = false;
-		// boolean isName = false, isMobile = false, isEmail = false;
 		UserDetails userDetails = null;
 		List<UserDetails> detailsList = new ArrayList<UserDetails>();
 		try {
 			String sql = "SELECT * FROM userdetail WHERE name = ? OR mobile = ? OR email = ? or username = ? ";
 			ps = con.prepareStatement(sql);
 			if (userDetailsList != null && userDetailsList.size() > 0) {
-				/*
-				 * if (!StringUtils.isEmpty(userDetailsList.get(0).getValue()))
-				 * { stringBuffer.append(" WHERE name = ? "); ps.setString(1,
-				 * userDetailsList.get(0).getValue()); isName = true; } if
-				 * (isName) { if
-				 * (!StringUtils.isEmpty(userDetailsList.get(1).getValue())) {
-				 * stringBuffer.append(" && mobile ? "); ps.setString(2,
-				 * userDetailsList.get(1).getValue()); isMobile = true; } else {
-				 * 
-				 * } } else { stringBuffer.append(" WHERE mobile ? ");
-				 * ps.setString(1, userDetailsList.get(1).getValue()); } if
-				 * (isMobile) { if
-				 * (!StringUtils.isEmpty(userDetailsList.get(2).getValue())) {
-				 * stringBuffer.append(" && email ? "); ps.setString(3,
-				 * userDetailsList.get(2).getValue()); isMobile = true; } else {
-				 * 
-				 * } } else { stringBuffer.append(" WHERE email ? ");
-				 * ps.setString(1, userDetailsList.get(2).getValue()); } if
-				 * (isEmail) { if
-				 * (!StringUtils.isEmpty(userDetailsList.get(2).getValue())) {
-				 * stringBuffer.append(" && username ? "); ps.setString(4,
-				 * userDetailsList.get(3).getValue()); isMobile = true; } else {
-				 * 
-				 * } } else { stringBuffer.append(" WHERE username ? ");
-				 * ps.setString(1, userDetailsList.get(3).getValue()); }
-				 * 
-				 * System.out.println(stringBuffer);
-				 */
 
 				ps.setString(1, userDetailsList.get(0).getValue());
 				ps.setString(2, userDetailsList.get(1).getValue());
@@ -151,6 +165,29 @@ public class SqlConnections {
 			}
 		}
 		return detailsList;
+	}
+
+	private boolean isExist(String mobile, String email, String username) {
+
+		String query = "SELECT * FROM userdetail WHERE username = ? OR email = ? OR mobile = ? ";
+		if (con == null) {
+			con = connection();
+		}
+		boolean isExist = false;
+		try {
+			ps = con.prepareStatement(query);
+			ps.setString(1, username);
+			ps.setString(2, email);
+			ps.setString(3, mobile);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				isExist = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			isExist = false;
+		}
+		return isExist;
 	}
 
 	private Connection connection() {

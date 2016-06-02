@@ -27,5 +27,7 @@
 		<property name="email" value="${email}" />
 		<property name="mobile" value="${mobile}" />
 		<property name="confirmPswd" value="${confirmPswd}" />
+		<property name="clear" value="${clear}" />
+		<property name="back" value="${back}" />
 	</bean>
 </beans>

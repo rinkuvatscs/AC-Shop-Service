@@ -9,7 +9,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -24,10 +23,6 @@ import com.ac.pojo.UserDetail;
 
 public class AddUser extends Application {
 
-	// Label addUser, lblName, lblMobile, lblEmail, lblUsername, lblPasswrd,
-	// lblConfirmPswd;
-	TextField txtName, txtMobile, txtEmail, txtUsername;
-	PasswordField txtPassword, txtConfirmPswd;
 	Button btnSubmit, btnCancel;
 
 	@Override
@@ -36,26 +31,10 @@ public class AddUser extends Application {
 		LoginPagePojo readEnglishProperties = new LoginPagePojo(
 				ApplicationStartPage.test());
 
-		// addUser = new Label(readEnglishProperties.getAddUser());
-		// lblName = new Label(readEnglishProperties.getName());
-		// lblMobile = new Label(readEnglishProperties.getMobile());
-		// lblEmail = new Label(readEnglishProperties.getEmail());
-		// lblUsername = new Label(readEnglishProperties.getUsername());
-		// lblPasswrd = new Label(readEnglishProperties.getPswd());
-		// lblConfirmPswd = new Label(readEnglishProperties.getConfirmPswd());
-
-		txtName = new TextField();
-		txtMobile = new TextField();
-		txtEmail = new TextField();
-		txtUsername = new TextField();
-		txtPassword = new PasswordField();
-		txtConfirmPswd = new PasswordField();
-
 		btnSubmit = new Button(readEnglishProperties.getSubmitbutton());
 		btnCancel = new Button(readEnglishProperties.getCancel());
 
 		GridPane setTitle = new GridPane();
-		// setTitle.add(addUser, 0, 0);
 
 		GridPane setComponents = new GridPane();
 		setComponents.setHgap(10);
@@ -63,11 +42,10 @@ public class AddUser extends Application {
 		setComponents.setPadding(new Insets(5, 10, 0, 10));
 
 		UiCommons commons = new UiCommons();
-		List<TextField> textFields = commons.drawTextFields(4);
+		List<TextField> textFields = commons.drawTextFields(4, 2);
 		int i = 0;
 		for (TextField textField : textFields) {
 			setComponents.add(textField, 1, 3 + i);
-
 			i++;
 		}
 
@@ -88,23 +66,8 @@ public class AddUser extends Application {
 		setTitle.add(labelList.get(0), 0, 0);
 
 		for (int j = 1; j < labelList.size(); j++) {
-
 			setComponents.add(labelList.get(j), 0, j + 2);
-
 		}
-
-		// setComponents.add(lblName, 0, 3);
-		// setComponents.add(txtName, 1, 3);
-		// setComponents.add(lblEmail, 0, 4);
-		// setComponents.add(txtEmail, 1, 4);
-		// setComponents.add(lblMobile, 0, 5);
-		// setComponents.add(txtMobile, 1, 5);
-		// setComponents.add(lblUsername, 0, 6);
-		// setComponents.add(txtUsername, 1, 6);
-		// setComponents.add(lblPasswrd, 0, 7);
-		setComponents.add(txtPassword, 1, 7);
-		// setComponents.add(lblConfirmPswd, 0, 8);
-		setComponents.add(txtConfirmPswd, 1, 8);
 		setComponents.add(btnSubmit, 0, 9);
 		setComponents.add(btnCancel, 1, 9);
 
@@ -138,6 +101,7 @@ public class AddUser extends Application {
 					.userDetailCommons(textFields);
 			SqlConnections sqlConnections = new SqlConnections();
 			String query = sqlConnections.addUser(listDetails);
+			System.out.println(query);
 		}
 	}
 
